@@ -13,14 +13,25 @@ namespace cs449sprint2.Core
 
         public bool IsValidMove(int fr, int fc, int tr, int tc)
         {
+            if (Board == null) return false;
+
+            if (fr < 0 || fr >= Board.Size || fc < 0 || fc >= Board.Size ||
+                tr < 0 || tr >= Board.Size || tc < 0 || tc >= Board.Size)
+            {
+                return false;
+            }
+
             if (Board.GetCell(fr, fc) != CellState.Peg) return false;
             if (Board.GetCell(tr, tc) != CellState.Empty) return false;
 
             int dr = tr - fr;
             int dc = tc - fc;
 
-            if (!(Math.Abs(dr) == 2 && dc == 0 || Math.Abs(dc) == 2 && dr == 0))
-                return false;
+            bool validDistance =
+                (Math.Abs(dr) == 2 && dc == 0) ||
+                (Math.Abs(dc) == 2 && dr == 0);
+
+            if (!validDistance) return false;
 
             int mr = (fr + tr) / 2;
             int mc = (fc + tc) / 2;
@@ -44,6 +55,8 @@ namespace cs449sprint2.Core
 
         public bool IsGameOver()
         {
+            if (Board == null) return true;
+
             for (int r = 0; r < Board.Size; r++)
             {
                 for (int c = 0; c < Board.Size; c++)
