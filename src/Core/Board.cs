@@ -13,7 +13,6 @@ namespace cs449sprint2.Core
             Size = size;
             Type = type;
             _cells = new CellState[size, size];
-
             Initialize();
         }
 
@@ -32,7 +31,14 @@ namespace cs449sprint2.Core
             _cells[center, center] = CellState.Empty;
         }
 
-        public CellState GetCell(int r, int c) => _cells[r, c];
-        public void SetCell(int r, int c, CellState val) => _cells[r, c] = val;
+        public CellState GetCell(int r, int c)
+        {
+            return _cells[r, c];
+        }
+
+        public void SetCell(int r, int c, CellState val)
+        {
+            _cells[r, c] = val;
+        }
     }
 }
